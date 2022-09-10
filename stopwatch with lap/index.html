@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #disp {
+        background-color: black;
+        font-size: 1.75em;
+        font-weight: bold;
+        color: white;
+        width: 7.65em;
+        font-family: "Courier New";
+        padding: 0.15em;
+        border-right-width: 0;
+      }
+      #butt {
+        font-size: 1em;
+        width: 8em;
+        font-family: "Courier New";
+      }
+      #butt2 {
+        font-size: 1em;
+        width: 5em;
+        font-family: "Courier New";
+      }
+      #lap {
+        margin-top: 0.5em;
+      }
+    </style>
+  </head>
+  <body onload="stopwatch();">
+    <br />
+    <div align="center">
+      <input type="text" id="disp" maxlength="12" readonly /><br /><br />
+      <button type="button" onclick="ss()" id="butt">Start/Stop</button>
+      <button type="button" onclick="r()" id="butt2">Reset</button>
+    </div>
+    <br />
+    <table align="center" border="1">
+      <tr>
+        <th width="65">Lap #</th>
+        <th width="112">Running Total</th>
+        <th width="112">This Lap</th>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <div align="center" id="lap"></div>
+        </td>
+      </tr>
+    </table>
+
+    <script
+      type="text/javascript"
+      src="index.js"
+    ></script>
+  </body>
+</html>
