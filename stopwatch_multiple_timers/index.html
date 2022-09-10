@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multiple Stopwatches</title>
+    <style>
+      body,html {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #fafafa;
+        height: 100%;
+      }
+
+      #mainstopwatch, #sub-stopwatch {
+        width: 400px;
+        height: 30vh;
+        margin: 50px auto;
+        padding: 60px 50px 10px;
+        text-align: center;
+        font-size: 40px;
+        background: #e0e0e0;
+        box-shadow: 15px 15px 30px #afafaf, -15px -15px 30px #ffffff;
+        border-radius: 40px;
+        background: #e0e0e0;
+        box-shadow: 6px -6px 8px #9d9d9d, -6px 6px 8px #ffffff;
+      }
+      #mainstopwatch span,
+      #sub-stopwatch  span{
+        background: #c7e0f8;
+        color: #0776de;
+        padding: 10px;
+        width: 55px;
+        margin: 3px;
+        display: inline-block;
+        background: #e0e0e0;
+        box-shadow: 6px -6px 8px #9d9d9d, -6px 6px 8px #ffffff;
+        border-radius: 10px;
+      }
+
+      #mainstopwatch button,
+      #sub-stopwatch button {
+        font-size: 22px;
+        -webkit-appearance: none;
+        border: none;
+        background-color: #2e80b3;
+        color: white;
+        width: 110px;
+        height: 55px;
+        justify-content: space-between;
+        transition: 0.2s;
+        border-radius: 40px;
+        box-shadow: 6px -6px 8px #9d9d9d, -6px 6px 8px #ffffff;
+      }
+
+      #mainstopwatch button:nth-child(even),
+      #sub-stopwatch button:nth-child(even) {
+        background-color: rgb(241, 64, 64);
+      }
+
+      #mainstopwatch button:last-child,
+      #sub-stopwatch button:last-child {
+        background-color: #20d364;
+      }
+      #mainstopwatch button:hover,
+      #sub-stopwatch button:hover {
+        background: #333;
+        color: #e0e0e0;
+        border-radius: 35px;
+        box-shadow: 6px -6px 8px #9d9d9d, -6px 6px 8px #ffffff;
+        transition: 0.2s;
+      }
+    </style>
+  </head>
+  <body>
+
+    <center>
+        <div id="mainstopwatch">
+            <div class="mainTime">
+                <span id="mainminute">00</span>
+                <span id="mainsecond">00</span>
+                <span id="milliseconds">00</span>
+
+        </div>
+        <br>
+        <button id="start" >Start</button>
+        <button id="stop" >Stop</button>
+        <button id="reset" >Reset</button>
+
+        
+    </center>
+    <center>
+        <div id="sub-stopwatch">
+            <div class="sub-Time">
+                <span id="sub-minute">00</span>
+                <span id="sub-second">00</span>
+                <span id="sub-milliseconds">00</span>
+
+        </div>
+        <br>
+        <button id="start1" >Start</button>
+        <button id="stop1" >Stop</button>
+        <button id="reset1">Reset</button>
+    </center>
+
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+      let [milliseconds, second, minute] = [0, 0, 0];
+      let [milliseconds1, second1, minute1] = [0, 0, 0];
+      let timerRef = document.querySelector(".mainTime");
+      let timerRef1 = document.querySelector(".sub-Time");
+      let int = null;
+      let int1 = null;
+
+      document.getElementById("start").addEventListener("click", () => {
+        if (int !== null) {
+          clearInterval(int);
+        }
+        int = setInterval(mainTime, 10);
+      });
+// for sub timer
+      document.getElementById("start1").addEventListener("click", () => {
+        if (int1 !== null) {
+          clearInterval(int1);
+        }
+        int1 = setInterval(subTime, 10);
+      });
+
+      document.getElementById("stop").addEventListener("click", () => {
+        clearInterval(int);
+      });
+      // for sub timer
+      document.getElementById("stop1").addEventListener("click", () => {
+        clearInterval(int1);
+      });
+
+      document.getElementById("reset").addEventListener("click", () => {
+        clearInterval(int);
+        [milliseconds, second, minute, hours] = [0, 0, 0];
+        timerRef.innerHTML = "00 : 00 : 00";
+      });
+// for sub timer
+      document.getElementById("reset1").addEventListener("click", () => {
+        clearInterval(int1);
+        [milliseconds1, second1, minute1, hours1] = [0, 0, 0];
+        timerRef1.innerHTML = "00 : 00 : 00";
+      });
+
+      function mainTime() {
+        milliseconds += 10;
+        if (milliseconds == 1000) {
+          milliseconds = 0;
+          second++;
+          if (second == 60) {
+            second = 0;
+            minute++;
+            if (minute == 60) {
+              minute = 0;
+            }
+          }
+        }
+
+        let m = minute < 10 ? "0" + minute : minute;
+        let s = second < 10 ? "0" + second : second;
+        let ms =
+          milliseconds < 10
+            ? "00" + milliseconds
+            : milliseconds < 100
+            ? "0" + milliseconds
+            : milliseconds;
+
+        timerRef.innerHTML = ` ${m} : ${s} : ${ms}`;
+      }
+// for subtimer
+      function subTime() {
+        milliseconds1 += 10;
+        if (milliseconds1 == 1000) {
+          milliseconds1 = 0;
+          second1++;
+          if (second1 == 60) {
+            second1 = 0;
+            minute1++;
+            if (minute1 == 60) {
+              minute1 = 0;
+            }
+          }
+        }
+
+        let m1 = minute1 < 10 ? "0" + minute1 : minute1;
+        let s1 = second1 < 10 ? "0" + second1 : second1;
+        let ms1 =
+          milliseconds1 < 10
+            ? "00" + milliseconds1
+            : milliseconds1 < 100
+            ? "0" + milliseconds1
+            : milliseconds1;
+
+        timerRef1.innerHTML = ` ${m1} : ${s1} : ${ms1}`;
+      }
+    </script>
+  </body>
+</html>
